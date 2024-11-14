@@ -13,8 +13,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('products.index', compact('products'));
+        if ($category = request('category')) {
+            $products = Product::where('category', $category)->get();
+        } else {
+            $products = Product::all();
+        }
+        $categoryProducts = Product::all();
+        return view('products.index', compact('products', 'categoryProducts'));
     }
 
     /**
@@ -87,5 +92,10 @@ class ProductController extends Controller
     public function inventory(){
         $products = Product::all();
         return view('inventory', compact('products'));
+    }
+    public function filterByCategory(){
+        $category = request('category');
+        $products = Product::where('category', $category)->get();
+        return view('products.index', compact('products'));
     }
 }
