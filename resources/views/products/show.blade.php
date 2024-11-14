@@ -7,6 +7,12 @@
         <img src="{{ asset('storage/' . $product->image) }}" class="w-full mt-4">
         <div class="mt-4">
             <a href="{{ route('product.edit', $product->id) }}" class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">Edit</a>
+            <form action="{{ route('product.destroy', $product->id) }}" method="POST" class="inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-bold rounded">Delete</button>
+            </form>
+            
         </div>
     </div>
 

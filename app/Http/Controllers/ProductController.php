@@ -55,7 +55,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -63,7 +63,16 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'quantity' => 'required|integer|min:1',
+            'price' => 'required|integer|min:0',
+        ]);
+
+        $product->update($validatedData);
+
+        return redirect()->route('product.show', $product);
     }
 
     /**
@@ -71,7 +80,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('product.index');
     }
     public function inventory(){
         $products = Product::all();
