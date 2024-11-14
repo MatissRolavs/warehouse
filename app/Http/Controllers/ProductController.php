@@ -88,4 +88,20 @@ class ProductController extends Controller
         $products = Product::all();
         return view('inventory', compact('products'));
     }
+
+
+    public function buy(Product $product)
+    {
+        return view('products.buy', compact('product'));
+    }
+    public function buyupdate(UpdateProductRequest $request, Product $product)
+    {
+        $validatedData = $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+        $validatedData['quantity'] += $product->quantity;
+        $product->update($validatedData);
+
+        return redirect()->route('product.show', $product);
+    }
 }

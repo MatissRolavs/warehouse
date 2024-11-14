@@ -25,8 +25,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/inventory', [ProductController::class, 'inventory'])->name('product.inventory');
     Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
- 
- 
+    Route::get('/product/{product}/buy', [ProductController::class, 'buy'])->name('product.buy');
+    Route::patch('/product/{product}/buy', [ProductController::class, 'buyupdate'])->name('product.buyupdate');
+
 });
 
 require __DIR__.'/auth.php';

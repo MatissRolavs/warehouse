@@ -11,6 +11,8 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-bold rounded">Delete</button>
+                <a href="{{ route('product.buy', $product->id) }}" class="px-4 py-2 bg-green-500 hover:bg-green-700 text-white font-bold rounded">Buy</a>
+
             </form>
             
         </div>
