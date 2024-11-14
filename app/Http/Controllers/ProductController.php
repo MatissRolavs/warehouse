@@ -13,6 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        
         if ($category = request('category')) {
             $products = Product::where('category', $category)->get();
         } else {
