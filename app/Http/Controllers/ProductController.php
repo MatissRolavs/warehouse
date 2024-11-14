@@ -91,7 +91,9 @@ class ProductController extends Controller
     }
     public function inventory(){
         $products = Product::all();
-        return view('inventory', compact('products'));
+        $lowstock = Product::where('quantity', '<=', 10)->get();
+        
+        return view('inventory', compact('products', 'lowstock'));
     }
 
 
@@ -108,5 +110,9 @@ class ProductController extends Controller
         $product->update($validatedData);
 
         return redirect()->route('product.show', $product);
+    }
+    public function lowstockIndex(){
+        $lowstock = Product::where('quantity', '<=', 10)->get();
+        return view('products.lowstock', compact('lowstock'));
     }
 }

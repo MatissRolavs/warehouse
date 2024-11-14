@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/product', [ProductController::class, 'store'])->name('product.store');
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
     Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
-
+    Route::get('/lowstock', [ProductController::class, 'lowstockIndex'])->name('lowstock.index');
     Route::get('/inventory', [ProductController::class, 'inventory'])->name('product.inventory');
     Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::get('/product/{product}/buy', [ProductController::class, 'buy'])->name('product.buy');
