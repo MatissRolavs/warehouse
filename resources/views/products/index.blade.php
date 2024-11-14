@@ -1,3 +1,11 @@
+<form method="GET" action="{{ route('product.index') }}">
+    <select name="category" id="category" onchange="this.form.submit()">
+        <option value="">Select a category</option>
+        @foreach (array_unique($categoryProducts->pluck('category')->toArray()) as $category)
+            <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>{{ $category }}</option>
+        @endforeach
+    </select>
+</form>
 
     <div class="container">
         <div class="row justify-content-center">
