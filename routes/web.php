@@ -18,12 +18,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
     Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::patch('/product/{product}', [ProductController::class, 'update'])->name('products.update');
     Route::post('/product', [ProductController::class, 'store'])->name('product.store');
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
     Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
-    
- 
- 
+
+    Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
 
 require __DIR__.'/auth.php';
