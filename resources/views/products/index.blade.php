@@ -25,6 +25,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Category</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,6 +33,21 @@
                                     <tr>
                                         <td>{{ $product->name }}</td>
                                         <td>{{$product->category}}</td>
+                                        <td>
+                                            @if ($product->quantity <= 10)
+                                                <span style="color: red; animation: blink 1s infinite;">Low stock</span>
+                                            @endif
+                                        </td>
+                                        
+                                        <style>
+                                            @keyframes blink {
+                                                0% { color: red; }
+                                                49% { color: red; }
+                                                50% { color: white; }
+                                                99% { color: white; }
+                                                100% { color: red; }
+                                            }
+                                        </style>
                                         <td>
                                             <a class="btn btn-secondary" href="{{route('product.show', $product->id)}}">More info</a>
                                             
