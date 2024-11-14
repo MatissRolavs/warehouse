@@ -17,14 +17,25 @@
         <x-text-input id="quantity" name="quantity" type="number" class="mt-1 block w-full" value="{{ old('quantity', 1) }}" required autofocus autocomplete="quantity" />
         <x-input-error class="mt-2" :messages="$errors->get('quantity')" />
     </div>
+    <div class="mt-4">
+        <p>Price per item: {{ $product->price }}$</p>
+        <p id="totalPrice">Total Price: {{ $product->price }}$</p>
+    </div>
 
+    <script>
+        document.getElementById('quantity').addEventListener('input', function() {
+            var quantity = parseInt(this.value) || 1;
+            var pricePerItem = {{ $product->price }};
+            var totalPrice = quantity * pricePerItem;
+            document.getElementById('totalPrice').innerText = 'Total Price: ' + totalPrice + '$';
+        });
+    </script>
     <div class="flex items-center justify-end mt-4">
         <x-primary-button class="ml-4">
             {{ __('Buy') }}
         </x-primary-button>
     </div>
-</form>
-                </div>
+                 
             </div>
         </div>
     </div>
