@@ -64,7 +64,7 @@
 <form method="GET" action="{{ route('lowstock.index') }}">
     <select name="category" id="category" onchange="this.form.submit()">
         <option value="">Select a category</option>
-        @foreach (array_unique($lowstock->pluck('category')->toArray()) as $category)
+        @foreach (array_unique($categoryLowstock->pluck('category')->toArray()) as $category)
             <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>{{ $category }}</option>
         @endforeach
     </select>

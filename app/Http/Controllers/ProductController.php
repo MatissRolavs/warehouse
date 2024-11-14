@@ -113,7 +113,13 @@ class ProductController extends Controller
         return redirect()->route('product.show', $product);
     }
     public function lowstockIndex(){
-        $lowstock = Product::where('quantity', '<=', 10)->get();
-        return view('products.lowstock', compact('lowstock'));
+        if ($category = request('category')) {
+            $lowstock = Product::where('quantity', '<=', 10)->get();
+            $lowstock = Product::where('category', $category)->where('quantity', '<=', 10)->get();
+        } else {
+            $lowstock = Product::where('quantity', '<=', 10)->get();
+        }
+        $categoryLowstock = Product::where('quantity', '<=', 10)->get();
+        return view('products.lowstock', compact('lowstock','categoryLowstock'));
     }
 }
