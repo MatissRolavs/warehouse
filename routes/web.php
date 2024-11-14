@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 
     Route::get('/inventory', [ProductController::class, 'inventory'])->name('product.inventory');
-    
+    Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
  
  
 });
