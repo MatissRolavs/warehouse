@@ -25,7 +25,7 @@
                                         <td>{{ $product->name }}</td>
                                         <td>{{$product->category}}</td>
                                         <td>
-                                            <a class="btn btn-secondary">More info</a>
+                                            <a class="btn btn-secondary" href="{{route('product.show', $product->id)}}">More info</a>
                                             
                                         </td>
                                     </tr>
