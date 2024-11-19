@@ -1,115 +1,55 @@
 <x-app-layout>
-
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
-    }
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-    input[type=text], input[type=number], input[type=decimal] {
-        border-radius: 1rem;
-        padding: 10px 20px;
-        border: none;
-        background-color: #f1f1f1;
-    }
-    .card {
-        width: 50%;
-        border-radius: 1rem;
-        background-color: #ffffff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .create-button {
-        background-color: #3e8e41;
-        color: white;
-        border-radius: 1rem;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-    }
-</style>
-<div class="container">
-    <div class="card">
-        <div class="card-header">{{ __('Create Product') }}</div>
-
-        <div class="card-body">
+    <div class="h-screen flex justify-center items-center">
+        <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold">{{ __('Create Product') }}</h1>
+            </div>
             <form method="POST" action="{{ route('product.store') }}">
                 @csrf
 
-                <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Name') }}</label>
+                    <input id="name" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                    <div class="col-md-6">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+                    @error('name')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div class="form-group row">
-                    <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
+                <div class="mb-4">
+                    <label for="category" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Category') }}</label>
+                    <input id="category" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('category') border-red-500 @enderror" name="category" value="{{ old('category') }}" required autocomplete="category">
 
-                    <div class="col-md-6">
-                        <input id="category" type="text" class="form-control @error('category') is-invalid @enderror" name="category" value="{{ old('category') }}" required autocomplete="category">
-
-                        @error('category')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+                    @error('category')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div class="form-group row">
-                    <label for="quantity" class="col-md-4 col-form-label text-md-right">{{ __('Quantity') }}</label>
+                <div class="mb-4">
+                    <label for="quantity" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Quantity') }}</label>
+                    <input id="quantity" type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('quantity') border-red-500 @enderror" name="quantity" value="{{ old('quantity') }}" required autocomplete="quantity">
 
-                    <div class="col-md-6">
-                        <input id="quantity" type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') }}" required autocomplete="quantity">
-
-                        @error('quantity')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+                    @error('quantity')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div class="form-group row">
-                    <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('Price') }}</label>
+                <div class="mb-4">
+                    <label for="price" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Price') }}</label>
+                    <input id="price" type="number" step="0.01" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('price') border-red-500 @enderror" name="price" value="{{ old('price') }}" required autocomplete="price">
 
-                    <div class="col-md-6">
-                        <input id="price" type="decimal" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required autocomplete="price">
-
-                        @error('price')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+                    @error('price')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="create-button">
-                            {{ __('Create') }}
-                        </button>
-                    </div>
+
+                <div class="flex items-center justify-center">
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        {{ __('Create') }}
+                    </button>
                 </div>
             </form>
         </div>
     </div>
-</div>
 </x-app-layout>
-
 
