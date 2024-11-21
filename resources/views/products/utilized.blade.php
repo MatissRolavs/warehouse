@@ -16,15 +16,17 @@
                                 <th class="px-4 py-2">{{ __('Category') }}</th>
                                 <th class="px-4 py-2">{{ __('Quantity') }}</th>
                                 <th class="px-4 py-2">{{ __('Price') }}</th>
+                                <th class="px-4 py-2">{{ __('Total Price') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($utilizedProducts as $utilizedProduct)
                                 <tr>
-                                    <td class="border px-4 py-2">{{ $utilizedProduct->name }}</td>
-                                    <td class="border px-4 py-2">{{ $utilizedProduct->category }}</td>
-                                    <td class="border px-4 py-2">{{ $utilizedProduct->quantity }}</td>
-                                    <td class="border px-4 py-2">{{ $utilizedProduct->price }}</td>
+                                    <td class="px-4 py-2">{{ $utilizedProduct->product->name }}</td>
+                                    <td class="px-4 py-2">{{ $utilizedProduct->category }}</td>
+                                    <td class="px-4 py-2">{{ $utilizedProduct->quantity }}</td>
+                                    <td class="px-4 py-2">{{ $utilizedProduct->price }}$</td>
+                                    <td class="px-4 py-2">{{ $utilizedProduct->price * $utilizedProduct->quantity }}$</td>
                                 </tr>
                             @endforeach
                         </tbody>

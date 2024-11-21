@@ -2,42 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUtilizedProductRequest;
-use App\Http\Requests\UpdateUtilizedProductRequest;
 use App\Models\Product;
 use App\Models\UtilizedProduct;
+use Illuminate\Http\Request;
 
 class UtilizedProductController extends Controller
 {
+    // UtilizedProductController.php
+    public function store($productId)
+    {
+        $product = Product::findOrFail($productId);
+    
+        // Mark the product as utilized
+        $utilizedProduct = new UtilizedProduct();
+        $utilizedProduct->product_id = $product->id;
+        $utilizedProduct->category = $product->category; // Store the category
+        $utilizedProduct->price = $product->price; // Store the price
+        $utilizedProduct->quantity = $product->quantity; // Store the quantity
+        $utilizedProduct->save();
+    
+        // Delete the product from the products table
+    
+        return redirect()->route('utilized.index');
+    }
+    
+    
+
 
     public function index()
     {
-        $utilizedProducts = UtilizedProduct::with('product')->get(); // Adjust if needed
+        $utilizedProducts = UtilizedProduct::with('product')->get(); // Get all utilized products
+    
         return view('products.utilized', compact('utilizedProducts'));
     }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreUtilizedProductRequest $request)
-    {
-        $product = Product::findOrFail($request->product_id);
-        $product->delete();
-
-        $utilizedProduct = new UtilizedProduct();
-        $utilizedProduct->product_id = $request->product_id;
-        $utilizedProduct->save();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(UtilizedProduct $utilizedProduct)
-    {
-        $product = new Product();
-        $product->id = $utilizedProduct->product_id;
-        $product->save();
-
-        $utilizedProduct->delete();
-    }
+    
 }
 

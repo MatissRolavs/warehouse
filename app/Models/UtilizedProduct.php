@@ -9,11 +9,19 @@ class UtilizedProduct extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'product_id',
+        'category',
+        'price',
+        'quantity',
+    ];
 
+    /**
+     * Define the relationship with the Product model.
+     */
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class);  // Each utilized product belongs to one product
     }
 }
 

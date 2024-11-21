@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\UtilizedProduct;
+
 
 class ProductController extends Controller
 {
@@ -13,15 +15,22 @@ class ProductController extends Controller
      */
     public function index()
     {
-        
         if ($category = request('category')) {
             $products = Product::where('category', $category)->get();
         } else {
             $products = Product::all();
         }
+    
+        // Add a flag to indicate whether the product is utilized
+        foreach ($products as $product) {
+            $product->is_utilized = UtilizedProduct::where('product_id', $product->id)->exists();
+        }
+    
         $categoryProducts = Product::all();
+    
         return view('products.index', compact('products', 'categoryProducts'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
