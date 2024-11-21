@@ -4,56 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUtilizedProductRequest;
 use App\Http\Requests\UpdateUtilizedProductRequest;
+use App\Models\Product;
 use App\Models\UtilizedProduct;
 
 class UtilizedProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $utilizedProducts = UtilizedProduct::with('product')->get(); // Adjust if needed
+        return view('products.utilized', compact('utilizedProducts'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreUtilizedProductRequest $request)
     {
-        //
-    }
+        $product = Product::findOrFail($request->product_id);
+        $product->delete();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(UtilizedProduct $utilizedProduct)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UtilizedProduct $utilizedProduct)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUtilizedProductRequest $request, UtilizedProduct $utilizedProduct)
-    {
-        //
+        $utilizedProduct = new UtilizedProduct();
+        $utilizedProduct->product_id = $request->product_id;
+        $utilizedProduct->save();
     }
 
     /**
@@ -61,6 +33,11 @@ class UtilizedProductController extends Controller
      */
     public function destroy(UtilizedProduct $utilizedProduct)
     {
-        //
+        $product = new Product();
+        $product->id = $utilizedProduct->product_id;
+        $product->save();
+
+        $utilizedProduct->delete();
     }
 }
+

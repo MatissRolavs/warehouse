@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UtilizedProductController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,7 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::get('/product/{product}/buy', [ProductController::class, 'buy'])->name('product.buy');
     Route::patch('/product/{product}/buy', [ProductController::class, 'buyupdate'])->name('product.buyupdate');
+    Route::get('/product/{product}/utilized', [ProductController::class, 'utilized'])->name('product.utilized');
+    Route::patch('/product/{product}/utilized', [ProductController::class, 'utilizedupdate'])->name('product.utilizedupdate');
+    Route::get('/utilized', [UtilizedProductController::class, 'index'])->name('utilized.index');
 
 });
 
 require __DIR__.'/auth.php';
+
