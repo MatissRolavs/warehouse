@@ -126,13 +126,22 @@ class ProductController extends Controller
         return redirect()->route('product.show', $product);
     }
     public function lowstockIndex(){
+        $utilizedProductIds = UtilizedProduct::pluck('product_id')->toArray();
+
         if ($category = request('category')) {
-            $lowstock = Product::where('quantity', '<=', 10)->get();
-            $lowstock = Product::where('category', $category)->where('quantity', '<=', 10)->get();
+            $lowstock = Product::where('category', $category)
+                ->where('quantity', '<=', 10)
+                ->whereNotIn('id', $utilizedProductIds)
+                ->get();
         } else {
-            $lowstock = Product::where('quantity', '<=', 10)->get();
+            $lowstock = Product::where('quantity', '<=', 10)
+                ->whereNotIn('id', $utilizedProductIds)
+                ->get();
         }
-        $categoryLowstock = Product::where('quantity', '<=', 10)->get();
+
+        $categoryLowstock = Product::where('quantity', '<=', 10)
+            ->whereNotIn('id', $utilizedProductIds)
+            ->get();
         return view('products.lowstock', compact('lowstock','categoryLowstock'));
     }
 }
