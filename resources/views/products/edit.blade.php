@@ -19,7 +19,7 @@
 
                     <div class="mt-4">
                         <x-input-label for="price" :value="__('Price')" />
-                        <x-text-input id="price" name="price" type="number" class="mt-1 block w-full text-lg" :value="old('price', $product->price)" required autofocus autocomplete="price" />
+                        <x-text-input  id="price" name="price" type="number" step="0.01" class="mt-1 block w-full text-lg" :value="old('price', $product->price)" required autofocus autocomplete="price" />
                         <x-input-error class="mt-2" :messages="$errors->get('price')" />
                     </div>
 

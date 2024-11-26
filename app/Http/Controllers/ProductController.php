@@ -25,8 +25,8 @@ class ProductController extends Controller
         $utilizedproducts = UtilizedProduct::count();
         if($utilizedproducts > 0){
             foreach ($products as $product) {
-                $product->is_utilized = UtilizedProduct::where('product_id', $product->id)->exists();
-            }
+            $product->is_utilized = UtilizedProduct::where('product_id', $product->id)->exists();
+        }
         }
         
     
@@ -86,7 +86,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'quantity' => 'required|integer|min:1',
-            'price' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0',
         ]);
 
         $product->update($validatedData);
