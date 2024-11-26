@@ -104,8 +104,9 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
     public function inventory(){
+        $utilizedProductIds = UtilizedProduct::pluck('product_id')->toArray();
         $products = Product::all();
-        $lowstock = Product::where('quantity', '<=', 10)->get();
+        $lowstock = Product::where('quantity', '<=', 10)->whereNotIn('id', $utilizedProductIds)->get();
         $utilizedProduct = UtilizedProduct::all();
         return view('inventory', compact('products', 'lowstock', 'utilizedProduct'));
     }
