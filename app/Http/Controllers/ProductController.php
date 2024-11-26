@@ -106,8 +106,8 @@ class ProductController extends Controller
     public function inventory(){
         $products = Product::all();
         $lowstock = Product::where('quantity', '<=', 10)->get();
-        
-        return view('inventory', compact('products', 'lowstock'));
+        $utilizedProduct = UtilizedProduct::all();
+        return view('inventory', compact('products', 'lowstock', 'utilizedProduct'));
     }
 
 

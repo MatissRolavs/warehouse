@@ -8,6 +8,9 @@
             <a href="/lowstock" class="text-2xl font-semibold text-black p-4 bg-gray-200 rounded">
                 Low Stock Products: {{$lowstock->count()}}
             </a>
+            <a href="/utilized" class="text-2xl font-semibold text-black p-4 bg-gray-200 rounded">
+                Utilized Products: {{$utilizedProduct->count()}}
+            </a>
         </div>
     </div>
 </x-app-layout>
@@ -17,3 +20,5 @@
         background-color: #8080802e;
     }
 </style>
+
+
