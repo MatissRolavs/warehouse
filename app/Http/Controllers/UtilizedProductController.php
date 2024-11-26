@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class UtilizedProductController extends Controller
 {
-    // UtilizedProductController.php
+    // Store a new utilized product
     public function store($productId)
     {
         $product = Product::findOrFail($productId);
@@ -22,20 +22,26 @@ class UtilizedProductController extends Controller
         $utilizedProduct->quantity = $product->quantity; // Store the quantity
         $utilizedProduct->save();
     
-        // Delete the product from the products table
-    
+        // Redirect to the utilized products index page
         return redirect()->route('utilized.index');
     }
     
-    
-
-
-    public function index()
+    // Index of utilized products with optional category filter
+    public function index(Request $request)
     {
-        $utilizedProducts = UtilizedProduct::with('product')->get(); // Get all utilized products
-    
-        return view('products.utilized', compact('utilizedProducts'));
+        // Get the category filter from the request
+        $category = $request->get('category');
+        
+        // Fetch utilized products, optionally filtered by category
+        if ($category) {
+            $utilizedProducts = UtilizedProduct::where('category', $category)->get();
+        } else {
+            $utilizedProducts = UtilizedProduct::all();
+        }
+        
+        // Get all unique categories for the dropdown filter
+        $categories = UtilizedProduct::select('category')->distinct()->pluck('category');
+        
+        return view('products.utilized', compact('utilizedProducts', 'categories', 'category'));
     }
-    
 }
-
