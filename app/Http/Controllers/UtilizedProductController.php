@@ -15,6 +15,7 @@ class UtilizedProductController extends Controller
     
         // Mark the product as utilized
         $utilizedProduct = new UtilizedProduct();
+        $utilizedProduct->name = $product->name;
         $utilizedProduct->product_id = $product->id;
         $utilizedProduct->category = $product->category; // Store the category
         $utilizedProduct->price = $product->price; // Store the price

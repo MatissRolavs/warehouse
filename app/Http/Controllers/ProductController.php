@@ -22,9 +22,13 @@ class ProductController extends Controller
         }
     
         // Add a flag to indicate whether the product is utilized
-        foreach ($products as $product) {
-            $product->is_utilized = UtilizedProduct::where('product_id', $product->id)->exists();
+        $utilizedproducts = UtilizedProduct::count();
+        if($utilizedproducts > 0){
+            foreach ($products as $product) {
+                $product->is_utilized = UtilizedProduct::where('product_id', $product->id)->exists();
+            }
         }
+        
     
         $categoryProducts = Product::all();
     
